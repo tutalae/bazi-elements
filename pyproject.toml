@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bazi-elements"
+dynamic = ["version"]
+description = "BaZi (Four Pillars of Destiny) charts with five-element analysis, Ten Gods, luck pillars and true solar time"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "tutalae" }]
+requires-python = ">=3.9"
+dependencies = [
+    "lunar_python>=1.4",
+    "tzdata; platform_system == 'Windows'",
+]
+keywords = ["bazi", "four pillars", "chinese astrology", "five elements", "ten gods", "八字"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Natural Language :: English",
+    "Natural Language :: Thai",
+    "Topic :: Other/Nonlisted Topic",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+bazi-elements = "bazi_elements.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/tutalae/bazi-elements"
+Issues = "https://github.com/tutalae/bazi-elements/issues"
+
+[tool.setuptools]
+packages = ["bazi_elements"]
+
+[tool.setuptools.dynamic]
+version = { attr = "bazi_elements.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
