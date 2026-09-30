@@ -28,10 +28,34 @@ def test_cli_json(capsys):
 
 
 @pytest.mark.parametrize("args", [
-    ["01/01/2000"],
+    ["2000-13-45"],
+    ["yesterday"],
     ["2000-01-01", "12:00", "--longitude", "100"],
     ["2000-01-01", "12:00", "--tz", "Not/AZone"],
 ])
 def test_cli_errors(args):
     with pytest.raises(SystemExit):
         main(args)
+
+
+def test_cli_city_and_explain(capsys):
+    main(["1990-05-12", "14:30", "--city", "Bangkok", "--explain"])
+    out = capsys.readouterr().out
+    assert "Solar time used: 1990-05-12 14:15" in out
+    assert "What your chart says" in out
+
+
+def test_cli_unknown_city():
+    with pytest.raises(SystemExit):
+        main(["1990-05-12", "--city", "Atlantis"])
+
+
+def test_guided_mode(monkeypatch, capsys):
+    answers = iter(["not a date", "12/05/2533", "", "?", "เชียงใหม่", "f"])
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(answers))
+    main(["--lang", "th"])
+    out = capsys.readouterr().out
+    assert "แปลง พ.ศ. 2533 เป็น ค.ศ. 1990" in out
+    assert "Chiang Mai" in out          # printed by the city list after "?"
+    assert "ดวงของคุณบอกอะไร" in out    # guided mode always explains
+    assert "เสายามจึงเป็นเพียงการคาดเดา" in out
