@@ -8,8 +8,9 @@ from lunar_python import Solar
 
 from .data import (BRANCHES, CONTROLLED_BY, CONTROLS, DIRECTIONAL, ELEMENTS, HIDDEN_STEMS,
                    HIDDEN_WEIGHTS, PILLAR_NAMES, PRODUCED_BY, PRODUCES, SEASON_STATES,
-                   SIX_CLASHES, SIX_COMBINATIONS, STEM_CLASHES, STEM_COMBINATIONS, STEMS,
-                   TEN_GODS, THREE_HARMONIES, ZODIAC)
+                   SELF_PUNISHMENT, SIX_CLASHES, SIX_COMBINATIONS, SIX_HARMS, STEM_CLASHES,
+                   STEM_COMBINATIONS, STEMS, TEN_GODS, THREE_HARMONIES, THREE_PUNISHMENTS,
+                   UNCIVIL_PUNISHMENT, ZODIAC)
 from .solar_time import to_china_time, true_solar_time
 
 
@@ -149,6 +150,11 @@ def find_interactions(stems, branches):
         for members in SIX_CLASHES:
             if pair_branches == set(members):
                 add("Six Clash", "六冲", members, (i, j))
+        for members in SIX_HARMS:
+            if pair_branches == set(members):
+                add("Six Harm", "六害", members, (i, j))
+        if pair_branches == set(UNCIVIL_PUNISHMENT):
+            add("Uncivil Punishment", "无礼之刑", UNCIVIL_PUNISHMENT, (i, j))
 
     for groups, kind, chinese in ((THREE_HARMONIES, "Three Harmony", "三合"),
                                   (DIRECTIONAL, "Directional Combination", "三会")):
@@ -160,6 +166,20 @@ def find_interactions(stems, branches):
             elif kind == "Three Harmony" and len(present) == 2 and members[1] in present:
                 # Half harmony needs the middle (cardinal) branch
                 add("Half Three Harmony", "半合", "".join(m for m in members if m in present), idxs, element)
+
+    for members, kind, chinese in THREE_PUNISHMENTS:
+        idxs = [i for i, b in enumerate(branches) if b in members]
+        present = "".join(m for m in members if m in {branches[i] for i in idxs})
+        if len(present) == 3:
+            add(kind, chinese, members, idxs)
+        elif len(present) == 2:
+            # Many schools also count two of the three branches
+            add(f"{kind} (partial)", chinese, present, idxs)
+
+    for branch in SELF_PUNISHMENT:
+        idxs = [i for i, b in enumerate(branches) if b == branch]
+        if len(idxs) >= 2:
+            add("Self Punishment", "自刑", branch * len(idxs), idxs)
     return found
 
 

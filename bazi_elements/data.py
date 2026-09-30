@@ -69,6 +69,12 @@ SIX_COMBINATIONS = [("子丑", "Earth"), ("寅亥", "Wood"), ("卯戌", "Fire"),
 SIX_CLASHES = ["子午", "丑未", "寅申", "卯酉", "辰戌", "巳亥"]
 THREE_HARMONIES = [("申子辰", "Water"), ("亥卯未", "Wood"), ("寅午戌", "Fire"), ("巳酉丑", "Metal")]
 DIRECTIONAL = [("寅卯辰", "Wood"), ("巳午未", "Fire"), ("申酉戌", "Metal"), ("亥子丑", "Water")]
+SIX_HARMS = ["子未", "丑午", "寅巳", "卯辰", "申亥", "酉戌"]
+# Three-branch punishments: (members, English name, Chinese name)
+THREE_PUNISHMENTS = [("寅巳申", "Ungrateful Punishment", "无恩之刑"),
+                     ("丑戌未", "Bullying Punishment", "恃势之刑")]
+UNCIVIL_PUNISHMENT = "子卯"
+SELF_PUNISHMENT = "辰午酉亥"   # each punishes itself when it appears twice
 STEM_COMBINATIONS = [("甲己", "Earth"), ("乙庚", "Metal"), ("丙辛", "Water"), ("丁壬", "Wood"), ("戊癸", "Fire")]
 STEM_CLASHES = ["甲庚", "乙辛", "丙壬", "丁癸"]
 

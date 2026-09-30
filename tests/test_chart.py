@@ -175,3 +175,26 @@ def test_luck_pillars_direction_by_gender():
 
 def test_no_luck_pillars_without_gender():
     assert analyze_bazi_chart(2000, 1, 1, 12).luck_pillars == []
+
+
+# --- Punishments and harms ---------------------------------------------------
+
+def test_six_harm():
+    assert ("Six Harm", "子未") in kinds("甲乙丙丁", "子未寅卯")
+
+
+def test_full_and_partial_three_punishments():
+    assert ("Ungrateful Punishment", "寅巳申") in kinds("甲乙丙丁", "寅巳申子")
+    assert ("Bullying Punishment (partial)", "丑戌") in kinds("甲乙丙丁", "丑戌子卯")
+    # a full punishment is not also reported as partial
+    assert not any("partial" in k for k, _ in kinds("甲乙丙丁", "寅巳申子"))
+
+
+def test_uncivil_and_self_punishment():
+    found = kinds("甲乙丙丁", "子卯午午")
+    assert ("Uncivil Punishment", "子卯") in found
+    assert ("Self Punishment", "午午") in found
+
+
+def test_no_self_punishment_for_other_branches():
+    assert not any(k == "Self Punishment" for k, _ in kinds("甲乙丙丁", "子子寅卯"))

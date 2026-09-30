@@ -43,7 +43,10 @@ THAI = {
     # interactions
     "Stem Combination": "ฮะฟ้า", "Stem Clash": "ชงฟ้า", "Six Combination": "ลักฮะ",
     "Six Clash": "ชง", "Three Harmony": "ซาฮะ", "Half Three Harmony": "ซาฮะครึ่ง",
-    "Directional Combination": "รวมทิศ",
+    "Directional Combination": "รวมทิศ", "Six Harm": "ทำร้าย",
+    "Ungrateful Punishment": "ลงโทษอกตัญญู", "Ungrateful Punishment (partial)": "ลงโทษอกตัญญู (บางส่วน)",
+    "Bullying Punishment": "ลงโทษรังแก", "Bullying Punishment (partial)": "ลงโทษรังแก (บางส่วน)",
+    "Uncivil Punishment": "ลงโทษไร้มารยาท", "Self Punishment": "ลงโทษตนเอง",
 }
 
 TEN_GOD_CHINESE = {

@@ -12,7 +12,7 @@ Calendar conversion uses [lunar_python](https://github.com/6tail/lunar-python). 
 - **Ten Gods (十神)** for every stem and hidden stem, relative to the Day Master
 - **Five elements** three ways: surface count, including hidden stems (藏干), and weighted by main / middle / residual qi
 - **Day Master strength** from season (得令), roots (得地) and support (得势)
-- **Interactions**: stem combinations and clashes, Six Combinations (六合), Six Clashes (六冲), Three Harmony (三合, full and half) and Directional Combinations (三会)
+- **Interactions**: stem combinations and clashes, Six Combinations (六合), Six Clashes (六冲), Six Harms (六害), Three Harmony (三合, full and half), Directional Combinations (三会) and Punishments (刑)
 - **Luck pillars (大运)** with starting age and year
 - **Accurate time handling**: birth-place time zone for exact solar-term boundaries, optional **true solar time** from longitude, and a choice of when the day changes (midnight or 23:00)
 - Text report or `--json`
@@ -51,8 +51,10 @@ Elements present: 4/5 (missing: Metal)
 Day Master strength: Strong  (season: Trapped 囚, rooted: yes, supported: yes, support 71%)
 
 Interactions:
+  Uncivil Punishment 无礼之刑: 子卯 (Year, Month)
   Six Clash 六冲: 子午 (Month, Day)
   Six Clash 六冲: 子午 (Month, Hour)
+  Self Punishment 自刑: 午午 (Day, Hour)
 
 Luck pillars (starts at age 8y 2m 10d):
   age  8-17  2008  乙亥  Yin Wood   Pig     Direct Officer 正官
@@ -107,7 +109,7 @@ print(format_chart(chart, lang="th"))
   - at least 50% of the weighted chart (excluding the Day Master) is the same element or its resource element.
 
   This is a common rule of thumb. It does not model transformations or special structures (从格), so treat it as a guide, not a reading.
-- Punishments (刑) and harms (害) are not detected yet.
+- **Punishments (刑)**: 寅巳申 (无恩之刑) and 丑戌未 (恃势之刑) are reported in full, or as *partial* when two of the three branches appear, since many schools count those too. 子卯 is 无礼之刑, and a second 辰, 午, 酉 or 亥 is 自刑.
 
 ## Development
 
@@ -116,7 +118,7 @@ pip install -e ".[test]"
 pytest
 ```
 
-The tests check a known chart, Ten Gods against lunar_python on 300 random dates, the Li Chun boundary with and without time zones, true solar time, the Zi-hour option, seasonal states, interactions, luck-pillar direction by gender, and the CLI. They run on Linux and Windows for Python 3.9, 3.11 and 3.13 on every push.
+The tests check a known chart, Ten Gods against lunar_python on 300 random dates, the Li Chun boundary with and without time zones, true solar time, the Zi-hour option, seasonal states, interactions, punishments and harms, luck-pillar direction by gender, and the CLI. They run on Linux and Windows for Python 3.9, 3.11 and 3.13 on every push.
 
 ## License
 
